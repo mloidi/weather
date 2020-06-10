@@ -1,8 +1,6 @@
-//countryRegion={countryRegion}&adminDistrict={adminDistrict}&locality={locality}&postalCode={postalCode}&addressLine={addressLine}&userLocation={userLocation}&userIp={userIp}&usermapView={usermapView}&includeNeighborhood={includeNeighborhood}&maxResults={maxResults}&key={BingMapsKey}
-
 import { GET, setRequestOptions } from './common';
 
-const URL = `${process.env.REACT_APP_BING_MAPS_ENDPONIT}`;
+const URL = `${process.env.REACT_APP_BING_MAPS_ENDPOINT}`;
 
 export const MapsService = {
   get: async (locality) => {

@@ -19,10 +19,13 @@ import {
   WiNightThunderstorm,
   WiDayShowers,
   WiNightShowers,
+  WiThermometer,
+  // WiDegrees,
 } from 'react-icons/wi';
 
 import { WeatherService } from '../service/weather.service';
 import { MapsService } from '../service/maps.service';
+import {getLocation} from './common'
 
 const toC = (kelvin) => {
   return Math.round(kelvin - 273.15);
@@ -84,23 +87,29 @@ const Location = styled.div`
 `;
 
 const CurrentWeater = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
+  /* display: grid;
+  grid-template-rows: auto auto auto; */
+`;
+
+const CurrentIcon = styled.div`
+  font-size: 6rem;
 `;
 
 const CurrentTemperature = styled.div`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 70px 70px auto;
   font-size: 4rem;
 `;
-const CurrentIcons = styled.div`
+const CurrentTemperatureIcons = styled.div`
   display: grid;
-  grid-template-columns: 40px 40px;
+  grid-template-columns: 64px 64px;
   align-content: start;
 `;
 
-const CurrentIcon = styled.div`
-  font-size: ${props => props.selected ? '4rem':'3rem'};
+const CurrentTemperatureIcon = styled.div`
+  font-size: 4rem;
+  color: ${(props) => (props.selected ? 'red' : 'black')};
+  cursor: pointer;
 `;
 
 export const Weather = ({ coordinates, selectedLocation }) => {
@@ -130,42 +139,46 @@ export const Weather = ({ coordinates, selectedLocation }) => {
     <Layout>
       {location && (
         <Location>
-          {location.address.locality}, {location.address.adminDistrict},{' '}
-          {location.address.countryRegion}{' '}
+          {getLocation(location.address)}
         </Location>
       )}
-
       {currentWeather && (
-        <CurrentWeater>
-          <CurrentTemperature>
+        <div>
+          <CurrentWeater>
+            <CurrentTemperature>
+              <WiThermometer />
+              <div>
+                {showCelsius
+                  ? toC(currentWeather.current.temp)
+                  : toF(currentWeather.current.temp)}
+                {/* <WiDegrees /> */}
+              </div>
+              <CurrentTemperatureIcons>
+                <CurrentTemperatureIcon selected={showCelsius}>
+                  <WiCelsius
+                    onClick={() => {
+                      setShowCelsius(true);
+                    }}
+                  />
+                </CurrentTemperatureIcon>
+                <CurrentTemperatureIcon selected={!showCelsius}>
+                  <WiFahrenheit
+                    onClick={() => {
+                      setShowCelsius(false);
+                    }}
+                  />
+                </CurrentTemperatureIcon>
+              </CurrentTemperatureIcons>
+            </CurrentTemperature>
             <div>
-              {showCelsius
-                ? toC(currentWeather.current.temp)
-                : toF(currentWeather.current.temp)}
+              <CurrentIcon>
+                {getIcon(currentWeather.current.weather[0].icon)}
+              </CurrentIcon>
+              <div>{currentWeather.current.weather[0].description}</div>
             </div>
-            <CurrentIcons>
-              <CurrentIcon selected={showCelsius}>
-                <WiCelsius
-                  onClick={() => {
-                    setShowCelsius(true);
-                  }}
-                />
-              </CurrentIcon>
-              <CurrentIcon selected={!showCelsius}>
-                <WiFahrenheit
-                  onClick={() => {
-                    setShowCelsius(false);
-                  }}
-                />
-              </CurrentIcon>
-            </CurrentIcons>
-          </CurrentTemperature>
-          <CurrentIcon>
-            {getIcon(currentWeather.current.weather[0].icon)}
-          </CurrentIcon>
-          {/* <div>{currentWeather.current.weather[0].main}</div>
-          <div>{currentWeather.current.weather[0].description}</div> */}
-        </CurrentWeater>
+            {/* <div>{currentWeather.current.weather[0].main}</div> */}
+          </CurrentWeater>
+        </div>
       )}
     </Layout>
   );

@@ -1,12 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { GoSearch } from 'react-icons/go';
 
 import { MapsService } from '../service/maps.service';
 import { Weather } from './Weather';
+import {getLocation} from './common'
 
 const Layout = styled.div`
-  margin: auto;
   padding: 20px;
+`;
+
+const Search = styled.div`
+  width: 100;
+  display: grid;
+  grid-template-columns: 90% 10%;
+`;
+
+const Input = styled.input`
+  border: none;
+  border-bottom: solid 1px black;
+  padding: 10px 10px;
+  outline: none;
+  font-size: 1rem;
+`;
+
+const Button = styled.button`
+  border: solid 1px black;
+  background-color: transparent;
+  padding: 10px 20px;
+  cursor: pointer;
+  :hover {
+    color: white;
+    background-color: black;
+  }
 `;
 
 export const Maps = () => {
@@ -35,15 +61,29 @@ export const Maps = () => {
 
   return (
     <Layout>
-      <input
-        name='location'
-        onChange={(e) => {
-          const location = e.target.value;
-          setLocation(location);
-          setUpdateLocation(true);
-        }}
-        value={location}
-      ></input>
+      <Search>
+        <Input
+          name='location'
+          onChange={(e) => {
+            const location = e.target.value;
+            setLocation(location);
+          }}
+          value={location}
+          placeholder='Enter city'
+          onKeyPress={(e) => {
+            if (e.charCode === 13) {
+              setUpdateLocation(true);
+            }
+          }}
+        ></Input>
+        <Button
+          onClick={() => {
+            setUpdateLocation(true);
+          }}
+        >
+          <GoSearch />
+        </Button>
+      </Search>
       {locations &&
         locations.map((location) => (
           <div
@@ -55,7 +95,7 @@ export const Maps = () => {
               setLocations([]);
             }}
           >
-            {location.name}
+            {getLocation(location.address)}
           </div>
         ))}
       <br />

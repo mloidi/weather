@@ -1,31 +1,25 @@
-import { GET, setRequestOptions } from './common';
-
 const URL = `${process.env.REACT_APP_BING_MAPS_ENDPOINT}`;
+
+const getData = (data) => {
+  return data[0].resources.map((resource) => {
+    return {
+      address: resource.address,
+      coordinates: resource.point.coordinates,
+      name: resource.name,
+    };
+  });
+};
 
 export const MapsService = {
   getByLocation: async (location) => {
     try {
-      const requestOptions = setRequestOptions({
-        method: GET,
-        mode: 'cors',
-      });
-      const req = new Request(
-        `${URL}?locality=${location}&key=${process.env.REACT_APP_BING_MAPS_API_KEY}`,
-        requestOptions
+      const response = await fetch(
+        `${URL}?locality=${location}&key=${process.env.REACT_APP_BING_MAPS_API_KEY}`
       );
-      const response = await fetch(req);
       const data = (await response.json()).resourceSets;
-      const locations = data[0].resources.map((resource) => {
-        return {
-          address: resource.address,
-          coordinates: resource.point.coordinates,
-          name: resource.name,
-        };
-      });
-
       return {
         status: 'OK',
-        data: locations,
+        data: getData(data),
         message: 'Get data correctly',
       };
     } catch (e) {
@@ -34,27 +28,13 @@ export const MapsService = {
   },
   getByPoint: async (point) => {
     try {
-      const requestOptions = setRequestOptions({
-        method: GET,
-        mode: 'cors',
-      });
-      const req = new Request(
-        `${URL}/${point}?&key=${process.env.REACT_APP_BING_MAPS_API_KEY}`,
-        requestOptions
+      const response = await fetch(
+        `${URL}/${point}?&key=${process.env.REACT_APP_BING_MAPS_API_KEY}`
       );
-      const response = await fetch(req);
       const data = (await response.json()).resourceSets;
-      const locations = data[0].resources.map((resource) => {
-        return {
-          address: resource.address,
-          coordinates: resource.point.coordinates,
-          name: resource.name,
-        };
-      });
-
       return {
         status: 'OK',
-        data: locations,
+        data: getData(data),
         message: 'Get data correctly',
       };
     } catch (e) {

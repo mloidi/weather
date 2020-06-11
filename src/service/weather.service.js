@@ -9,11 +9,11 @@ export const WeatherService = {
       //   method: GET,
       //   mode: 'cors',
       // });
-      const url = `${URL}lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
       // const req = new Request(url, requestOptions);
-      const response = await fetch(url);
+      const response = await fetch(
+        `${URL}lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
+      );
       const data = await response.json();
-      console.log(data);
       return {
         status: 'OK',
         data,

@@ -4,7 +4,7 @@ import { GoSearch } from 'react-icons/go';
 
 import { MapsService } from '../service/maps.service';
 import { Weather } from './Weather';
-import {getLocation} from './common'
+import { getLocation } from './common';
 
 const Layout = styled.div`
   padding: 20px;
@@ -35,6 +35,10 @@ const Button = styled.button`
   }
 `;
 
+const SelectedLocation = styled.div`
+  font-size: 2rem;
+`;
+
 export const Maps = () => {
   const [location, setLocation] = useState('');
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -44,6 +48,12 @@ export const Maps = () => {
 
   const getCoordinates = (position) => {
     setCoordinates([position.coords.latitude, position.coords.longitude]);
+    console.log(`${position.coords.latitude},${position.coords.longitude}`);
+    MapsService.getByPoint(
+      `${position.coords.latitude},${position.coords.longitude}`
+    ).then((response) => {
+      setSelectedLocation(response.data[0]);
+    });
   };
 
   useEffect(() => {
@@ -61,7 +71,7 @@ export const Maps = () => {
 
   return (
     <Layout>
-      <Search>
+      {/* <Search>
         <Input
           name='location'
           onChange={(e) => {
@@ -83,7 +93,7 @@ export const Maps = () => {
         >
           <GoSearch />
         </Button>
-      </Search>
+      </Search> */}
       {locations &&
         locations.map((location) => (
           <div
@@ -100,10 +110,14 @@ export const Maps = () => {
         ))}
       <br />
       {coordinates.length > 0 && (
-        <Weather
-          coordinates={coordinates}
-          selectedLocation={selectedLocation}
-        />
+        <div>
+          {selectedLocation && (
+            <SelectedLocation>
+              {getLocation(selectedLocation.address)}
+            </SelectedLocation>
+          )}
+          <Weather coordinates={coordinates} />
+        </div>
       )}
     </Layout>
   );

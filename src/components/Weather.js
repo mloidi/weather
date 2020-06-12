@@ -20,12 +20,9 @@ import {
   WiDayShowers,
   WiNightShowers,
   WiThermometer,
-  // WiDegrees,
 } from 'react-icons/wi';
 
 import { WeatherService } from '../service/weather.service';
-import { MapsService } from '../service/maps.service';
-import {getLocation} from './common'
 
 const toC = (kelvin) => {
   return Math.round(kelvin - 273.15);
@@ -79,11 +76,7 @@ const getIcon = (icon) => {
 };
 
 const Layout = styled.div`
-  margin: 20px 0;
-`;
-
-const Location = styled.div`
-  font-size: 2rem;
+  margin: 10px 0;
 `;
 
 const CurrentWeater = styled.div`
@@ -97,24 +90,34 @@ const CurrentIcon = styled.div`
 
 const CurrentTemperature = styled.div`
   display: grid;
-  grid-template-columns: 70px 70px auto;
-  font-size: 4rem;
-`;
-const CurrentTemperatureIcons = styled.div`
-  display: grid;
-  grid-template-columns: 64px 64px;
-  align-content: start;
+  grid-template-columns: 50px 80px 100px;
+  font-size: 3rem;
+  justify-items: end;
+  align-items: center;
 `;
 
 const CurrentTemperatureIcon = styled.div`
-  font-size: 4rem;
-  color: ${(props) => (props.selected ? 'red' : 'black')};
+  font-size: 3rem;
+  padding-top: 20px;
+`;
+
+const CurrentTemperatureNumber = styled.div`
+  font-size: 3rem;
+`;
+
+const CurrentTemperatureDegreeIcons = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+`;
+
+const CurrentTemperatureDegreeIcon = styled.div`
+  font-size: 3rem;
+  opacity: ${(props) => (props.selected ? '1' : '0.5')};
   cursor: pointer;
 `;
 
-export const Weather = ({ coordinates, selectedLocation }) => {
+export const Weather = ({ coordinates }) => {
   const [currentWeather, setCurrentWeather] = useState(null);
-  const [location, setLocation] = useState(selectedLocation);
   const [showCelsius, setShowCelsius] = useState(true);
 
   useEffect(() => {
@@ -123,52 +126,38 @@ export const Weather = ({ coordinates, selectedLocation }) => {
     });
   }, [coordinates]);
 
-  useEffect(() => {
-    if (!selectedLocation) {
-      MapsService.getByPoint(`${coordinates[0]},${coordinates[1]}`).then(
-        (response) => {
-          setLocation(response.data[0]);
-        }
-      );
-    } else {
-      setLocation(selectedLocation);
-    }
-  }, [coordinates, selectedLocation]);
-
   return (
     <Layout>
-      {location && (
-        <Location>
-          {getLocation(location.address)}
-        </Location>
-      )}
       {currentWeather && (
         <div>
           <CurrentWeater>
             <CurrentTemperature>
-              <WiThermometer />
-              <div>
+              <CurrentTemperatureIcon>
+                <WiThermometer />
+              </CurrentTemperatureIcon>
+              <CurrentTemperatureNumber>
                 {showCelsius
                   ? toC(currentWeather.current.temp)
                   : toF(currentWeather.current.temp)}
-                {/* <WiDegrees /> */}
-              </div>
-              <CurrentTemperatureIcons>
-                <CurrentTemperatureIcon selected={showCelsius}>
-                  <WiCelsius
-                    onClick={() => {
-                      setShowCelsius(true);
-                    }}
-                  />
-                </CurrentTemperatureIcon>
-                <CurrentTemperatureIcon selected={!showCelsius}>
-                  <WiFahrenheit
-                    onClick={() => {
-                      setShowCelsius(false);
-                    }}
-                  />
-                </CurrentTemperatureIcon>
-              </CurrentTemperatureIcons>
+              </CurrentTemperatureNumber>
+              <CurrentTemperatureDegreeIcons>
+                <CurrentTemperatureDegreeIcon
+                  selected={showCelsius}
+                  onClick={() => {
+                    setShowCelsius(true);
+                  }}
+                >
+                  <WiCelsius />
+                </CurrentTemperatureDegreeIcon>
+                <CurrentTemperatureDegreeIcon
+                  selected={!showCelsius}
+                  onClick={() => {
+                    setShowCelsius(false);
+                  }}
+                >
+                  <WiFahrenheit />
+                </CurrentTemperatureDegreeIcon>
+              </CurrentTemperatureDegreeIcons>
             </CurrentTemperature>
             <div>
               <CurrentIcon>

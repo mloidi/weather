@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
-  WiCelsius,
-  WiFahrenheit,
   WiDaySunny,
   WiMoonAltNew,
   WiDayCloudy,
@@ -19,20 +17,14 @@ import {
   WiNightThunderstorm,
   WiDayShowers,
   WiNightShowers,
-  WiThermometer,
 } from 'react-icons/wi';
 
 import { WeatherService } from '../service/weather.service';
+import { Current } from './Current';
+import { Daily } from './Daily';
+import { Hourly } from './Hourly';
 
-const toC = (kelvin) => {
-  return Math.round(kelvin - 273.15);
-};
-
-const toF = (kelvin) => {
-  return Math.round((kelvin - 273.15) * 1.8 + 32);
-};
-
-const getIcon = (icon) => {
+export const getIcon = (icon) => {
   switch (icon) {
     case '01d':
       return <WiDaySunny />;
@@ -79,95 +71,41 @@ const Layout = styled.div`
   margin: 10px 0;
 `;
 
-const CurrentWeater = styled.div`
-  /* display: grid;
-  grid-template-rows: auto auto auto; */
-`;
-
-const CurrentIcon = styled.div`
-  font-size: 6rem;
-`;
-
-const CurrentTemperature = styled.div`
-  display: grid;
-  grid-template-columns: 50px 80px 100px;
-  font-size: 3rem;
-  justify-items: end;
-  align-items: center;
-`;
-
-const CurrentTemperatureIcon = styled.div`
-  font-size: 3rem;
-  padding-top: 20px;
-`;
-
-const CurrentTemperatureNumber = styled.div`
-  font-size: 3rem;
-`;
-
-const CurrentTemperatureDegreeIcons = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
-`;
-
-const CurrentTemperatureDegreeIcon = styled.div`
-  font-size: 3rem;
-  opacity: ${(props) => (props.selected ? '1' : '0.5')};
-  cursor: pointer;
-`;
-
-export const Weather = ({ coordinates }) => {
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const [showCelsius, setShowCelsius] = useState(true);
+export const Weather = ({ coordinates, showCelsius, setShowCelsius }) => {
+  const [current, setCurrent] = useState(null);
+  const [daily, setDaily] = useState(null);
+  const [hourly, setHourly] = useState(null);
 
   useEffect(() => {
     WeatherService.get(coordinates[0], coordinates[1]).then((response) => {
-      setCurrentWeather(response.data);
+      setCurrent(response.data.current);
+      setDaily(response.data.daily);
+      setHourly(response.data.hourly);
     });
   }, [coordinates]);
 
   return (
     <Layout>
-      {currentWeather && (
-        <div>
-          <CurrentWeater>
-            <CurrentTemperature>
-              <CurrentTemperatureIcon>
-                <WiThermometer />
-              </CurrentTemperatureIcon>
-              <CurrentTemperatureNumber>
-                {showCelsius
-                  ? toC(currentWeather.current.temp)
-                  : toF(currentWeather.current.temp)}
-              </CurrentTemperatureNumber>
-              <CurrentTemperatureDegreeIcons>
-                <CurrentTemperatureDegreeIcon
-                  selected={showCelsius}
-                  onClick={() => {
-                    setShowCelsius(true);
-                  }}
-                >
-                  <WiCelsius />
-                </CurrentTemperatureDegreeIcon>
-                <CurrentTemperatureDegreeIcon
-                  selected={!showCelsius}
-                  onClick={() => {
-                    setShowCelsius(false);
-                  }}
-                >
-                  <WiFahrenheit />
-                </CurrentTemperatureDegreeIcon>
-              </CurrentTemperatureDegreeIcons>
-            </CurrentTemperature>
-            <div>
-              <CurrentIcon>
-                {getIcon(currentWeather.current.weather[0].icon)}
-              </CurrentIcon>
-              <div>{currentWeather.current.weather[0].description}</div>
-            </div>
-            {/* <div>{currentWeather.current.weather[0].main}</div> */}
-          </CurrentWeater>
-        </div>
+      {current && (
+        <Current
+          current={current}
+          showCelsius={showCelsius}
+          setShowCelsius={setShowCelsius}
+        />
+      )}
+      {hourly && (
+        <Hourly
+          hourly={hourly}
+          showCelsius={showCelsius}
+          setShowCelsius={setShowCelsius}
+        />
+      )}
+      {daily && (
+        <Daily
+          daily={daily}
+          showCelsius={showCelsius}
+          setShowCelsius={setShowCelsius}
+        />
       )}
     </Layout>
   );

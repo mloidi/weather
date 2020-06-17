@@ -1,28 +1,48 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { WiCelsius, WiFahrenheit } from 'react-icons/wi';
 
-import { toC, toF, getTime } from './common';
+import { getTemperature, getTime } from './common';
 import { getIcon } from './Weather';
 
 const Layout = styled.div`
   margin: 20px 0;
+  justify-self: center;
 `;
-export const Hourly = ({ hourly, showCelsius, setShowCelsius }) => {
+
+const Row = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, 50px);
+  grid-gap: 10px;
+  justify-items: center;
+  overflow: auto;
+`;
+
+const Hour = styled.div`
+  display: grid;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+`;
+
+const Icon = styled.div`
+  font-size: 1.5rem;
+`;
+
+export const Hourly = ({ hourly, showCelsius }) => {
   const [hours] = useState(hourly.splice(0, 12));
   return (
     <Layout>
-      Hourly
-      {hours &&
-        hours.map((hour) => (
-          <div key={hour.dt}>
-            <div>
-              {getTime(hour.dt)} {getIcon(hour.weather[0].icon)}{' '}
-              {showCelsius ? toC(hour.temp) : toF(hour.temp)}{' '}
-              {showCelsius ? <WiCelsius /> : <WiFahrenheit />}
+      <Row>
+        {hours &&
+          hours.map((hour) => (
+            <div key={hour.dt}>
+              <Hour>
+                <div>{getTime(hour.dt)}</div>
+                <Icon>{getIcon(hour.weather[0].icon)} </Icon>
+                <div>{getTemperature(showCelsius, hour.temp)}</div>
+              </Hour>
             </div>
-          </div>
-        ))}
+          ))}
+      </Row>
     </Layout>
   );
 };

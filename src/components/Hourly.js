@@ -15,6 +15,9 @@ const Row = styled.div`
   grid-gap: 10px;
   justify-items: center;
   overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Hour = styled.div`

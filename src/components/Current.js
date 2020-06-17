@@ -48,7 +48,12 @@ const TemperatureDegreeIcon = styled.div`
   cursor: pointer;
 `;
 
-export const Current = ({ current, showCelsius, setShowCelsius , temperature}) => {
+export const Current = ({
+  current,
+  showCelsius,
+  setShowCelsius,
+  temperature,
+}) => {
   return (
     <Layout>
       <Temperature>
@@ -97,8 +102,11 @@ export const Current = ({ current, showCelsius, setShowCelsius , temperature}) =
         </div> */}
         {/* <div>visibility {current.visibility} m</div> */}
         {/* <div>UV index {current.uvi}</div> */}
-        <div>Max {showCelsius ? toC(temperature.max) : toF(temperature.max)}°</div>
-        <div>Min {showCelsius ? toC(temperature.min) : toF(temperature.min)}°</div>
+        <div>
+          {`${showCelsius ? toC(temperature.max) : toF(temperature.max)}° ${
+            showCelsius ? toC(temperature.min) : toF(temperature.min)
+          }°`}
+        </div>
       </div>
     </Layout>
   );

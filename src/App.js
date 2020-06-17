@@ -7,6 +7,10 @@ import { getLocation } from './components/common';
 
 const Layout = styled.div`
   padding: 20px;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Search = styled.div`

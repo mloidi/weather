@@ -6,11 +6,12 @@ import { getIcon } from './Weather';
 
 const Layout = styled.div`
   margin: 20px 0;
+width: 340px;
 `;
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 100px auto auto;
+  grid-template-columns: 80px auto auto;
   justify-content: space-between;
 `;
 

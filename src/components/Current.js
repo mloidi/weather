@@ -13,7 +13,8 @@ import { toC, toF, getTime } from './common';
 import { getIcon } from './Weather';
 
 const Layout = styled.div`
-  margin: 20px 0;
+  margin: 20px auto;
+  max-width: 710px;
 `;
 
 const Icon = styled.div`
@@ -46,6 +47,21 @@ const TemperatureDegreeIcon = styled.div`
   font-size: 2rem;
   opacity: ${(props) => (props.selected ? '1' : '0.5')};
   cursor: pointer;
+`;
+
+const Sun = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+`;
+
+const Sunrise = styled(WiSunrise)`
+  padding-top: 10px;
+  font-size: 1.5rem;
+`;
+
+const Sunset = styled(WiSunset)`
+  font-size: 1.5rem;
 `;
 
 export const Current = ({
@@ -85,23 +101,18 @@ export const Current = ({
       <div>
         <Icon>{getIcon(current.weather[0].icon)}</Icon>
         <div>{current.weather[0].description}</div>
-        <div>
-          <WiSunrise /> {getTime(current.sunrise)}
-        </div>
-        <div>
-          <WiSunset /> {getTime(current.sunset)}
-        </div>
+        <Sun>
+          <div>
+            <Sunrise />
+            <div>{getTime(current.sunrise)}</div>
+          </div>
+          <div>
+            <Sunset /> {getTime(current.sunset)}
+          </div>
+        </Sun>
         <div>
           <WiHumidity /> {current.humidity} %
         </div>
-        {/* <div>
-          <WiStrongWind /> {current.wind_speed} m/s
-        </div> */}
-        {/* <div>
-          <WiBarometer /> {current.pressure} hPa
-        </div> */}
-        {/* <div>visibility {current.visibility} m</div> */}
-        {/* <div>UV index {current.uvi}</div> */}
         <div>
           {`${showCelsius ? toC(temperature.max) : toF(temperature.max)}° ${
             showCelsius ? toC(temperature.min) : toF(temperature.min)

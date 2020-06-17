@@ -5,8 +5,8 @@ import { getTemperature, getTime } from './common';
 import { getIcon } from './Weather';
 
 const Layout = styled.div`
-  margin: 20px 0;
-  justify-self: center;
+  margin: 20px auto;
+  max-width: 710px;
 `;
 
 const Row = styled.div`

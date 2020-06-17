@@ -5,8 +5,8 @@ import { getWeekDay, getTemperature } from './common';
 import { getIcon } from './Weather';
 
 const Layout = styled.div`
-  margin: 20px 0;
-width: 340px;
+  margin: 20px auto;
+  max-width: 710px;
 `;
 
 const Row = styled.div`
@@ -17,6 +17,7 @@ const Row = styled.div`
 
 const Icon = styled.div`
   font-size: 1.5rem;
+  justify-self: center;
 `;
 
 export const Daily = ({ daily, showCelsius }) => {
@@ -28,7 +29,10 @@ export const Daily = ({ daily, showCelsius }) => {
             <div>{getWeekDay(day.dt)}</div>
             <Icon>{getIcon(day.weather[0].icon)}</Icon>
             <div>
-              {`${getTemperature(showCelsius, day.temp.max)} / ${getTemperature(showCelsius, day.temp.min)}`}
+              {`${getTemperature(showCelsius, day.temp.max)} / ${getTemperature(
+                showCelsius,
+                day.temp.min
+              )}`}
             </div>
           </Row>
         ))}

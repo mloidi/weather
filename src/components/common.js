@@ -57,19 +57,21 @@ export const get12Hours = (hours) => {
   return hours.splice(0, 12);
 };
 
-export const getMaxMinTemperature = (hourly) => {
+export const getWeek = (days) => {
+  const today = new Date();
+  return days.filter((day) => {
+    return getDay(day.dt) !== today.getDate();
+  });
+};
+
+export const getMaxMinTemperature = (daily) => {
   const temperature = { max: 0, min: 9999 };
   const today = new Date();
-  hourly.forEach((hour) => {
-    if (getDay(hour.dt) - 1 === today.getDate()) {
-      console.log(hour);
-      if (temperature.max < hour.temp) {
-        temperature.max = hour.temp;
-      }
-      temperature.min =
-        temperature.min > hour.temp ? hour.temp : temperature.min;
+  daily.forEach((day) => {
+    if (getDay(day.dt) - 1 === today.getDate()) {
+      temperature.max = day.temp.max;
+      temperature.min = day.temp.min;
     }
   });
-  console.log(temperature);
   return temperature;
 };

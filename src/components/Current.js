@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  WiCelsius,
-  WiFahrenheit,
   WiThermometer,
   WiSunrise,
   WiSunset,
@@ -50,7 +48,7 @@ const TemperatureDegreeIcon = styled.div`
   cursor: pointer;
 `;
 
-export const Current = ({ current, showCelsius, setShowCelsius }) => {
+export const Current = ({ current, showCelsius, setShowCelsius , temperature}) => {
   return (
     <Layout>
       <Temperature>
@@ -67,7 +65,7 @@ export const Current = ({ current, showCelsius, setShowCelsius }) => {
               setShowCelsius(true);
             }}
           >
-            <WiCelsius />
+            °C
           </TemperatureDegreeIcon>
           <TemperatureDegreeIcon
             selected={!showCelsius}
@@ -75,7 +73,7 @@ export const Current = ({ current, showCelsius, setShowCelsius }) => {
               setShowCelsius(false);
             }}
           >
-            <WiFahrenheit />
+            °F
           </TemperatureDegreeIcon>
         </TemperatureDegreeIcons>
       </Temperature>
@@ -99,6 +97,8 @@ export const Current = ({ current, showCelsius, setShowCelsius }) => {
         </div>
         <div>visibility {current.visibility} m</div>
         <div>UV index {current.uvi}</div>
+        <div>Max {showCelsius ? toC(temperature.max) : toF(temperature.max)}°</div>
+        <div>Min {showCelsius ? toC(temperature.min) : toF(temperature.min)}°</div>
       </div>
     </Layout>
   );

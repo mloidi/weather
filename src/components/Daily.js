@@ -1,20 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { getDay,getWeekDay } from './common';
+import { getWeekDay, getTemperature } from './common';
+import { getIcon } from './Weather';
 
 const Layout = styled.div`
   margin: 20px 0;
 `;
-export const Daily = ({ daily, showCelsius, setShowCelsius }) => {
+
+const Row = styled.div`
+  display: grid;
+  grid-template-columns: 100px auto auto;
+  justify-content: space-between;
+`;
+
+const Icon = styled.div`
+  font-size: 1.5rem;
+`;
+
+export const Daily = ({ daily, showCelsius }) => {
   return (
     <Layout>
-      Daily
       {daily &&
         daily.map((day) => (
-          <div key={day.dt}>
-            <div>{`${getWeekDay(day.dt)} ${getDay(day.dt)}`}</div>
-          </div>
+          <Row key={day.dt}>
+            <div>{getWeekDay(day.dt)}</div>
+            <Icon>{getIcon(day.weather[0].icon)}</Icon>
+            <div>
+              {`${getTemperature(showCelsius, day.temp.max)} / ${getTemperature(showCelsius, day.temp.min)}`}
+            </div>
+          </Row>
         ))}
     </Layout>
   );

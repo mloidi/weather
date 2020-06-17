@@ -7,7 +7,6 @@ export const WeatherService = {
         `${URL}lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       );
       const data = await response.json();
-      // console.log(data);
       return {
         status: 'OK',
         data,

@@ -5,8 +5,8 @@ import {
   WiSunrise,
   WiSunset,
   WiHumidity,
-  WiBarometer,
-  WiStrongWind,
+  // WiBarometer,
+  // WiStrongWind,
 } from 'react-icons/wi';
 
 import { toC, toF, getTime } from './common';
@@ -24,7 +24,7 @@ const Temperature = styled.div`
   display: grid;
   grid-template-columns: 50px 80px 100px;
   font-size: 3rem;
-  justify-items: end;
+  /* justify-items: end; */
   align-items: center;
 `;
 
@@ -43,7 +43,7 @@ const TemperatureDegreeIcons = styled.div`
 `;
 
 const TemperatureDegreeIcon = styled.div`
-  font-size: 3rem;
+  font-size: 2rem;
   opacity: ${(props) => (props.selected ? '1' : '0.5')};
   cursor: pointer;
 `;
@@ -89,14 +89,14 @@ export const Current = ({ current, showCelsius, setShowCelsius , temperature}) =
         <div>
           <WiHumidity /> {current.humidity} %
         </div>
-        <div>
+        {/* <div>
           <WiStrongWind /> {current.wind_speed} m/s
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <WiBarometer /> {current.pressure} hPa
-        </div>
-        <div>visibility {current.visibility} m</div>
-        <div>UV index {current.uvi}</div>
+        </div> */}
+        {/* <div>visibility {current.visibility} m</div> */}
+        {/* <div>UV index {current.uvi}</div> */}
         <div>Max {showCelsius ? toC(temperature.max) : toF(temperature.max)}°</div>
         <div>Min {showCelsius ? toC(temperature.min) : toF(temperature.min)}°</div>
       </div>

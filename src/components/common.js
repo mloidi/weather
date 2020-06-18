@@ -68,7 +68,7 @@ export const getMaxMinTemperature = (daily) => {
   const temperature = { max: 0, min: 9999 };
   const today = new Date();
   daily.forEach((day) => {
-    if (getDay(day.dt) - 1 === today.getDate()) {
+    if (getDay(day.dt)  === today.getDate()) {
       temperature.max = day.temp.max;
       temperature.min = day.temp.min;
     }

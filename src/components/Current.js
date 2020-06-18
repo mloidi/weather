@@ -83,7 +83,7 @@ export const Current = ({
               setShowCelsius(true);
             }}
           >
-            °C
+            C
           </TemperatureDegreeIcon>
           <TemperatureDegreeIcon
             selected={!showCelsius}
@@ -91,7 +91,7 @@ export const Current = ({
               setShowCelsius(false);
             }}
           >
-            °F
+            F
           </TemperatureDegreeIcon>
         </TemperatureDegreeIcons>
       </Temperature>

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { getWeekDay, getTemperature } from './common';
-import { getIcon } from './Weather';
+import { getWeekDay, getTemperature, getIcon } from './common';
 
 const Layout = styled.div`
   margin: 20px auto;

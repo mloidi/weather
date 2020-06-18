@@ -1,16 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  WiThermometer,
-  WiSunrise,
-  WiSunset,
-  WiHumidity,
-  // WiBarometer,
-  // WiStrongWind,
-} from 'react-icons/wi';
+import { WiThermometer, WiSunrise, WiSunset, WiHumidity } from 'react-icons/wi';
 
-import { toC, toF, getTime } from './common';
-import { getIcon } from './Weather';
+import {
+  getTime,
+  getWeatherDescription,
+  getTemperature,
+  getIcon,
+} from './common';
 
 const Layout = styled.div`
   margin: 20px auto;
@@ -77,7 +74,7 @@ export const Current = ({
           <WiThermometer />
         </TemperatureIcon>
         <TemperatureNumber>
-          {showCelsius ? toC(current.temp) : toF(current.temp)}
+          {getTemperature(showCelsius, current.temp)}
         </TemperatureNumber>
         <TemperatureDegreeIcons>
           <TemperatureDegreeIcon
@@ -100,7 +97,7 @@ export const Current = ({
       </Temperature>
       <div>
         <Icon>{getIcon(current.weather[0].icon)}</Icon>
-        <div>{current.weather[0].description}</div>
+        <div>{getWeatherDescription(current.weather[0].id)}</div>
         <Sun>
           <div>
             <Sunrise />
@@ -114,9 +111,10 @@ export const Current = ({
           <WiHumidity /> {current.humidity} %
         </div>
         <div>
-          {`${showCelsius ? toC(temperature.max) : toF(temperature.max)}° ${
-            showCelsius ? toC(temperature.min) : toF(temperature.min)
-          }°`}
+          {`${getTemperature(showCelsius, temperature.max)} ${getTemperature(
+            showCelsius,
+            temperature.min
+          )}`}
         </div>
       </div>
     </Layout>

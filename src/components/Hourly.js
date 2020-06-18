@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { getTemperature, getTime } from './common';
-import { getIcon } from './Weather';
+import { getTemperature, getTime, getIcon } from './common';
 
 const Layout = styled.div`
   margin: 20px auto;

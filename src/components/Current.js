@@ -41,11 +41,18 @@ const TemperatureDegreeIcons = styled.div`
   align-items: center;
 `;
 
-const TemperatureDegreeIcon = styled.div`
+const TemperatureDegreeIcon = styled.button`
   font-size: ${(props) => (props.selected ? '2rem' : '1.5rem')};
   opacity: ${(props) => (props.selected ? '1' : '0.5')};
   cursor: pointer;
   text-align: center;
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  outline: none;
+  &:active {
+    outline: none;
+  }
 `;
 
 const ExtraData = styled.div`
@@ -120,7 +127,9 @@ export const Current = ({
       <ExtraData>
         <div>
           <Icon>{getIcon(current.weather[0].icon)}</Icon>
-          <Description>{getWeatherDescription(current.weather[0].id)}</Description>
+          <Description>
+            {getWeatherDescription(current.weather[0].id)}
+          </Description>
         </div>
         <Details>
           <DetailsRow>

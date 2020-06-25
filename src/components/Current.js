@@ -22,7 +22,6 @@ const Temperature = styled.div`
   display: grid;
   grid-template-columns: 50px 80px 100px;
   font-size: 3rem;
-  /* justify-items: end; */
   align-items: center;
 `;
 
@@ -36,28 +35,51 @@ const TemperatureNumber = styled.div`
 `;
 
 const TemperatureDegreeIcons = styled.div`
+  justify-self: center;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 40px 40px;
+  align-items: center;
 `;
 
 const TemperatureDegreeIcon = styled.div`
-  font-size: 2rem;
+  font-size: ${(props) => (props.selected ? '2rem' : '1.5rem')};
   opacity: ${(props) => (props.selected ? '1' : '0.5')};
   cursor: pointer;
+  text-align: center;
 `;
 
-const Sun = styled.div`
+const ExtraData = styled.div`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 180px auto;
+`;
+
+const Description = styled.div`
+  margin-top: -20px;
+`;
+
+const Details = styled.div`
+  display: grid;
+  grid-template-rows: auto auto;
   justify-content: space-between;
 `;
 
+const DetailsRow = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  justify-content: start;
+  align-content: end;
+`;
+
 const Sunrise = styled(WiSunrise)`
-  padding-top: 10px;
   font-size: 1.5rem;
 `;
 
 const Sunset = styled(WiSunset)`
+  font-size: 1.5rem;
+`;
+
+const Humidity = styled(WiHumidity)`
   font-size: 1.5rem;
 `;
 
@@ -95,28 +117,30 @@ export const Current = ({
           </TemperatureDegreeIcon>
         </TemperatureDegreeIcons>
       </Temperature>
-      <div>
-        <Icon>{getIcon(current.weather[0].icon)}</Icon>
-        <div>{getWeatherDescription(current.weather[0].id)}</div>
-        <Sun>
-          <div>
+      <ExtraData>
+        <div>
+          <Icon>{getIcon(current.weather[0].icon)}</Icon>
+          <Description>{getWeatherDescription(current.weather[0].id)}</Description>
+        </div>
+        <Details>
+          <DetailsRow>
             <Sunrise />
             <div>{getTime(current.sunrise)}</div>
-          </div>
-          <div>
-            <Sunset /> {getTime(current.sunset)}
-          </div>
-        </Sun>
-        <div>
-          <WiHumidity /> {current.humidity} %
-        </div>
-        <div>
-          {`${getTemperature(showCelsius, temperature.max)} ${getTemperature(
-            showCelsius,
-            temperature.min
-          )}`}
-        </div>
-      </div>
+          </DetailsRow>
+          <DetailsRow>
+            <Sunset />
+            <div>{getTime(current.sunset)}</div>
+          </DetailsRow>
+          <DetailsRow>
+            <Humidity />
+            <div>{current.humidity} %</div>
+          </DetailsRow>
+          <DetailsRow>
+            <div>High {`${getTemperature(showCelsius, temperature.max)}`}</div>
+            <div>Low {`${getTemperature(showCelsius, temperature.min)}`}</div>
+          </DetailsRow>
+        </Details>
+      </ExtraData>
     </Layout>
   );
 };

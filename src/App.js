@@ -29,7 +29,7 @@ const Input = styled.input`
 
 const SelectedLocation = styled.div`
   margin: 20px auto;
-  max-width: 710px;
+  max-width: 730px;
   font-size: 2rem;
 `;
 

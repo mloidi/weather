@@ -12,7 +12,7 @@ const Layout = styled.div`
 `;
 const Row = styled.div`
   margin: auto;
-  max-width: 710px;
+  max-width: 730px;
 `;
 
 export const Weather = ({ coordinates, showCelsius, setShowCelsius }) => {

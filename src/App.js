@@ -6,7 +6,7 @@ import { Weather } from './components/Weather';
 import { getLocation } from './components/common';
 
 const Layout = styled.div`
-  padding: 0 20px 20px 20px;
+  padding: 0 10px 20px 10px;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;

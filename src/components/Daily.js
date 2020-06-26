@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getWeekDay, getTemperature, getIcon } from './common';
 
 const Layout = styled.div`
-  margin: 20px auto;
+  margin: 10px auto;
   max-width: 710px;
   background-color: white;
   padding: 10px;

@@ -10,7 +10,7 @@ import {
 } from './common';
 
 const Layout = styled.div`
-  margin: 20px auto;
+  margin: 10px auto;
   max-width: 710px;
   background-color: white;
   padding: 10px;
@@ -26,7 +26,7 @@ const Icon = styled.div`
 `;
 
 const Temperature = styled.div`
-  width: 710px;
+  width: 360px;
   margin: 0 auto;
   text-align: center;
   display: grid;
@@ -50,7 +50,7 @@ const TemperatureDegreeIcons = styled.div`
   align-items: center;
 `;
 
-const TemperatureDegreeIcon = styled.button`
+const TemperatureDegreeButton = styled.button`
   font-size: ${(props) => (props.selected ? '2rem' : '1.5rem')};
   opacity: ${(props) => (props.selected ? '1' : '0.5')};
   cursor: pointer;
@@ -65,6 +65,8 @@ const TemperatureDegreeIcon = styled.button`
 `;
 
 const ExtraData = styled.div`
+  width: 360px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 180px 180px;
 `;
@@ -115,22 +117,22 @@ export const Current = ({
           {getTemperature(showCelsius, current.temp)}
         </TemperatureNumber>
         <TemperatureDegreeIcons>
-          <TemperatureDegreeIcon
+          <TemperatureDegreeButton
             selected={showCelsius}
             onClick={() => {
               setShowCelsius(true);
             }}
           >
             C
-          </TemperatureDegreeIcon>
-          <TemperatureDegreeIcon
+          </TemperatureDegreeButton>
+          <TemperatureDegreeButton
             selected={!showCelsius}
             onClick={() => {
               setShowCelsius(false);
             }}
           >
             F
-          </TemperatureDegreeIcon>
+          </TemperatureDegreeButton>
         </TemperatureDegreeIcons>
       </Temperature>
       <ExtraData>

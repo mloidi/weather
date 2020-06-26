@@ -29,15 +29,28 @@ export const Weather = ({ coordinates, showCelsius, setShowCelsius }) => {
   return (
     <Layout>
       {current && (
-        <Current
-          current={current}
-          showCelsius={showCelsius}
-          setShowCelsius={setShowCelsius}
-          temperature={temperature}
-        />
+        <div>
+          Now
+          <Current
+            current={current}
+            showCelsius={showCelsius}
+            setShowCelsius={setShowCelsius}
+            temperature={temperature}
+          />
+        </div>
       )}
-      {hourly && <Hourly hourly={hourly} showCelsius={showCelsius} />}
-      {daily && <Daily daily={daily} showCelsius={showCelsius} />}
+      {hourly && (
+        <div>
+          Hourly
+          <Hourly hourly={hourly} showCelsius={showCelsius} />
+        </div>
+      )}
+      {daily && (
+        <div>
+          Next 7 days
+          <Daily daily={daily} showCelsius={showCelsius} />
+        </div>
+      )}
     </Layout>
   );
 };

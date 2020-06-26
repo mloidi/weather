@@ -5,7 +5,6 @@ import { getTemperature, getTime, getIcon } from './common';
 
 const Layout = styled.div`
   margin: 10px auto;
-  max-width: 710px;
   background-color: white;
   padding: 10px;
   border: 1px solid transparent;

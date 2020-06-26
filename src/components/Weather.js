@@ -10,6 +10,10 @@ import { getMaxMinTemperature, getWeek } from './common.js';
 const Layout = styled.div`
   margin: 10px 0;
 `;
+const Row = styled.div`
+  margin: auto;
+  max-width: 710px;
+`;
 
 export const Weather = ({ coordinates, showCelsius, setShowCelsius }) => {
   const [current, setCurrent] = useState(null);
@@ -29,7 +33,7 @@ export const Weather = ({ coordinates, showCelsius, setShowCelsius }) => {
   return (
     <Layout>
       {current && (
-        <div>
+        <Row>
           Now
           <Current
             current={current}
@@ -37,19 +41,19 @@ export const Weather = ({ coordinates, showCelsius, setShowCelsius }) => {
             setShowCelsius={setShowCelsius}
             temperature={temperature}
           />
-        </div>
+        </Row>
       )}
       {hourly && (
-        <div>
+        <Row>
           Hourly
           <Hourly hourly={hourly} showCelsius={showCelsius} />
-        </div>
+        </Row>
       )}
       {daily && (
-        <div>
+        <Row>
           Next 7 days
           <Daily daily={daily} showCelsius={showCelsius} />
-        </div>
+        </Row>
       )}
     </Layout>
   );

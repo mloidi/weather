@@ -12,6 +12,13 @@ import {
 const Layout = styled.div`
   margin: 20px auto;
   max-width: 710px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 2px 2px grey;
+  display: grid;
+  grid-template-rows: auto auto;
 `;
 
 const Icon = styled.div`
@@ -19,10 +26,12 @@ const Icon = styled.div`
 `;
 
 const Temperature = styled.div`
+  width: 710px;
+  margin: 0 auto;
+  text-align: center;
   display: grid;
   grid-template-columns: 50px 80px 100px;
   font-size: 3rem;
-  align-items: center;
 `;
 
 const TemperatureIcon = styled.div`
@@ -57,7 +66,7 @@ const TemperatureDegreeIcon = styled.button`
 
 const ExtraData = styled.div`
   display: grid;
-  grid-template-columns: 180px auto;
+  grid-template-columns: 180px 180px;
 `;
 
 const Description = styled.div`

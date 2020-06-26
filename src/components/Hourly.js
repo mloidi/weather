@@ -6,6 +6,11 @@ import { getTemperature, getTime, getIcon } from './common';
 const Layout = styled.div`
   margin: 20px auto;
   max-width: 710px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 2px 2px grey;
 `;
 
 const Row = styled.div`

@@ -6,11 +6,16 @@ import { getWeekDay, getTemperature, getIcon } from './common';
 const Layout = styled.div`
   margin: 20px auto;
   max-width: 710px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 2px 2px grey;
 `;
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 80px auto auto;
+  grid-template-columns: 80px auto 80px;
   justify-content: space-between;
 `;
 

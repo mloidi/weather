@@ -33,9 +33,6 @@ const SelectedLocation = styled.div`
   font-size: 2rem;
 `;
 
-// const SelectedLocationMoreInfo = styled.div`
-//   font-size: 1rem;
-// `;
 export const App = () => {
   const showSearch = false;
   const [location, setLocation] = useState('');
@@ -118,9 +115,6 @@ export const App = () => {
               <SelectedLocation>
                 {selectedLocation.address.locality}
               </SelectedLocation>
-              {/* <SelectedLocationMoreInfo>
-                {getLocation(selectedLocation.address)}
-              </SelectedLocationMoreInfo> */}
             </div>
           )}
           <Weather
